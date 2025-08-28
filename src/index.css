@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.centered-container {
+  @apply mx-auto py-8 px-6 md:px-36 md:py-16 w-full max-w-[1440px] space-y-8 md:space-y-12;
+}
+.section {
+  @apply mt-8 mb-16;
+}
+
+/* ✅ Updated URLs to absolute paths to match Netlify deployment */
+@font-face {
+  font-family: "EB Garamond";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/EBGaramond.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/Inter.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/Lato.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/Merriweather.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/Nunito.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/PlayfairDisplay.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/Roboto.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Serif";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/Serif.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Sofia Sans";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/SofiaSans.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url("https://stately-mousse-7498f9.netlify.app/fonts/WorkSans.ttf")
+    format("truetype");
+}
+
+.HoursTable-day {
+  @apply mr-8;
+}

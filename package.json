@@ -1,0 +1,61 @@
+{
+  "name": "pages-starter-react-locations",
+  "version": "0.0.0",
+  "description": "An example repository to help users get started with React development on Yext Pages",
+  "author": "sumo@yext.com",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "scripts": {
+    "dev": "pages dev",
+    "prod": "pages prod",
+    "build": "pages build",
+    "clean": "rm -rf .artifact-output .yext/ dist/ localData sites-rendered-output",
+    "features": "pages generate features"
+  },
+  "engines": {
+    "node": "^18.4.0 || >=20.2.0"
+  },
+  "dependencies": {
+    "@headlessui/react": "2.2.2",
+    "@heroicons/react": "^2.2.0",
+    "@vitejs/plugin-react-swc": "^3.9.0",
+    "chart.js": "^4.4.9",
+    "classnames": "^2.5.1",
+    "font-awesome": "^4.7.0",
+    "markdown-to-jsx": "^7.7.6",
+    "react": "^18.3.1",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^18.3.1",
+    "react-dropzone": "14.3.8",
+    "react-icons": "^5.5.0",
+    "react-phone-number-input": "^3.4.12",
+    "tailwind-merge": "^3.2.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@lexical/code": "^0.30.0",
+    "@lexical/hashtag": "^0.30.0",
+    "@lexical/link": "^0.30.0",
+    "@lexical/list": "^0.30.0",
+    "@lexical/react": "^0.30.0",
+    "@lexical/rich-text": "^0.30.0",
+    "@lexical/table": "^0.30.0",
+    "@lexical/utils": "^0.30.0",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.6",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vitejs/plugin-react": "^4.4.1",
+    "@yext/pages": "^1.2.3",
+    "@yext/pages-components": "^1.0.7",
+    "autoprefixer": "^10.4.21",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-react": "^7.37.5",
+    "lexical": "^0.30.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.3"
+  }
+}
