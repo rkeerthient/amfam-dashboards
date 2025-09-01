@@ -48,9 +48,7 @@ export const config: TemplateConfig = {
       "yearsOfExperience",
       "c_preferredName",
       "c_jobTitle",
-      "c_aboutMeShort",
-      "c_fullBiography",
-      "hobbies",
+       "hobbies",
       "interests",
       "languages",
       "c_clientFocuses",
@@ -306,7 +304,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                   ))}
                 </section>
               </div>
-              <div className="w-1/4 flex flex-col gap-4 border">
+              {/* <div className="w-1/4 flex flex-col gap-4 border">
                 <div className="p-5 bg-white flex flex-col gap-4">
                   <h3 className="font-bold text-gray-900">
                     {c_dashboardCompletionLabel}
@@ -322,7 +320,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                 {missingFields.length >= 1 && (
                   <IncompleteFields missingFields={missingFields} />
                 )}
-              </div>
+              </div> */}
             </div>
           )}
           {currentTab === "Analytics" && <AnalyticsOverview />}
