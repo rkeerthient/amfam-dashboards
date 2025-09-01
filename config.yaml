@@ -9,16 +9,12 @@ buildConfiguration:
 livePreviewConfiguration:
   setupCommand: ":"
 siteStream:
-  id: site-entity
+  id: dashboard
   fields:
     - name
     - richTextDescriptionV2
     - c_taskGroups
-    - c_dashboardCompletionLabel
-    - c_dashboardCompletionDescription
     - c_termsAndConditions
-    - c_header
-    - c_footer
   localization:
     locales:
       - en
