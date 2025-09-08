@@ -38,6 +38,7 @@ const isEmpty = (val: any): boolean => {
 const DisplayData = ({ type, onEdit, fieldName }: DisplayDataProps) => {
   const { fieldValues } = useFieldGroupsStore();
   const value = fieldValues[fieldName];
+  console.log(JSON.stringify(value));
 
   const baseClass = `text-xs break-all w-full ${
     isEmpty(value) ? "text-[#8896a1]" : ""
@@ -95,15 +96,31 @@ const DisplayData = ({ type, onEdit, fieldName }: DisplayDataProps) => {
       <div className={baseClass} onClick={onEdit}>
         {Array.isArray(value) && value.length > 0
           ? value.map((item: any, idx: number) => {
-              const entries = Object.entries(item);
+              const entriesRaw = Object.entries(item);
+              const entries =
+                fieldName === "frequentlyAskedQuestions"
+                  ? (() => {
+                      const orderedKeys = ["question", "answer"] as const;
+                      const ordered = orderedKeys
+                        .map((k) => entriesRaw.find(([key]) => key === k))
+                        .filter(Boolean) as [string, any][];
+                      const rest = entriesRaw.filter(
+                        ([k]) => !orderedKeys.includes(k as any)
+                      );
+                      return [...ordered, ...rest];
+                    })()
+                  : entriesRaw;
+
               return (
                 <div key={idx} className="mb-2">
-                  {entries.map(([key, val]: any, subIdx) => (
+                  {entries.map(([key, val]: any, subIdx: number) => (
                     <div
                       key={subIdx}
-                      className="text-xs flex flex-col border-l border-[#c4cbd0] pl-2"
+                      className="text-xs flex flex-col border-l border-[#c4cbd0] pl-2 pb-2"
                     >
-                      <span className="font-bold mb-0.5">{key}:</span>
+                      <span className="font-bold mb-0.5">
+                        {titleCase(key)}:
+                      </span>
                       <span>
                         {Array.isArray(val) ? (
                           val.map((v, vi) => <div key={vi}>{v}</div>)
@@ -203,3 +220,11 @@ export const formatEntityName = (input: string) => {
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/^./, (char) => char.toUpperCase());
 };
+
+function titleCase(s: string) {
+  return s
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}

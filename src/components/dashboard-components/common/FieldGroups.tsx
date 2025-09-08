@@ -14,6 +14,7 @@ import MultiselectPicklistField from "../fields/MultiselectPicklist";
 import StructuredListField from "../fields/StructuredListField";
 import PhotoField from "../fields/PhotoField";
 import EntityField from "../fields/entityField/EntityField";
+import FAQsField from "../fields/FAQsField";
 
 interface TasksProp {
   tasks: Task[];
@@ -96,6 +97,10 @@ const FieldGroups = ({ tasks, document }: TasksProp) => {
                         fieldName={item.field}
                         options={fieldApiType.options || []}
                       />
+                    ) : item.field === "frequentlyAskedQuestions" ? (
+                      <FAQsField
+                        fieldName={item.field}
+                       />
                     ) : item.field === "headshot" ||
                       fieldApiType?.type === "image" ? (
                       <PhotoField fieldName={item.field} />

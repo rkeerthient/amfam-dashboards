@@ -108,6 +108,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
     c_dashboardCompletionLabel,
     c_dashboardCompletionDescription,
   } = document._site;
+  console.log(JSON.stringify(document.frequentlyAskedQuestions));
 
   const {
     entityId,
