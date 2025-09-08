@@ -78,16 +78,26 @@ const FieldGroups = ({ tasks, document }: TasksProp) => {
               <div className="flex flex-1">
                 {isEditing ? (
                   <div className="flex flex-1 w-min break-all text-xs flex-col">
-                    {["hobbies", "interests", "languages"].includes(
-                      item.field
-                    ) || fieldApiType?.type === "array" ? (
+                    {[
+                      "hobbies",
+                      "interests",
+                      "languages",
+                      "products",
+                      "awards",
+                      "services",
+                      "specialities",
+                      "certifications",
+                      "associations",
+                      "brands",
+                    ].includes(item.field) || fieldApiType?.type === "array" ? (
                       <TextList fieldName={item.field} />
                     ) : fieldApiType?.type === "multiselect" ? (
                       <MultiselectPicklistField
                         fieldName={item.field}
                         options={fieldApiType.options || []}
                       />
-                    ) : fieldApiType?.type === "image" ? (
+                    ) : item.field === "headshot" ||
+                      fieldApiType?.type === "image" ? (
                       <PhotoField fieldName={item.field} />
                     ) : fieldApiType?.type === "structuredListField" ? (
                       <StructuredListField
@@ -100,12 +110,15 @@ const FieldGroups = ({ tasks, document }: TasksProp) => {
                       <TextAreaField fieldName={item.field} />
                     ) : fieldApiType?.type === "entityRelationship" ? (
                       <EntityField type={item.field} fieldName={item.field} />
-                    ) : fieldApiType?.type === "select" ? (
+                    ) : fieldApiType?.type === "select" ||
+                      fieldApiType?.type === "booleanType" ? (
                       <PicklistField
                         fieldName={item.field}
                         options={fieldApiType.options || []}
                       />
-                    ) : fieldType === "text" ||
+                    ) : item.field === "yearsOfExperience" ||
+                      item.field === "nmlsNumber" ||
+                      fieldType === "text" ||
                       fieldApiType?.type === "text" ? (
                       <TextField fieldName={item.field} />
                     ) : null}

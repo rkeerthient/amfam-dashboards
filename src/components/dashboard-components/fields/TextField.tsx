@@ -20,8 +20,19 @@ const TextField = ({ fieldName }: CompProps) => {
       type={fieldName === "c_color" ? "color" : "text"}
       ref={inputRef}
       className={`${fieldName === "c_color" ? `w-8 p-1` : `w-full  py-1.5 pl-2.5`} border mb-2.5 bg-white  border-[#dadce0] h-[30px] rounded-md`}
-      value={currentValue}
-      onChange={(e) => setNewValue(fieldName, e.currentTarget.value)}
+      value={
+        fieldName === "yearsOfExperience"
+          ? currentValue.toString()
+          : currentValue
+      }
+      onChange={(e) =>
+        setNewValue(
+          fieldName,
+          fieldName === "yearsOfExperience"
+            ? parseInt(e.currentTarget.value)
+            : e.currentTarget.value
+        )
+      }
     />
   );
 };

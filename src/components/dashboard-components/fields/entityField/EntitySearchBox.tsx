@@ -47,11 +47,11 @@ const EntitySearchBox = ({
   const fetchEntities = async () => {
     setHasFetched(false);
     setFetchedEntities([]);
-    const _type = type.includes("Blog") ? "ce_blog" : "event";
 
     try {
-      const res = await fetch(`/api/getEntities/${_type}`);
+      const res = await fetch(`/api/getEntities/location`);
       const data = await res.json();
+
       const entities = data.response?.entities ?? [];
 
       const filtered = entities
@@ -106,7 +106,7 @@ const EntitySearchBox = ({
             </div>
           ))}
 
-          {type.includes("Blog") && isAdmin && (
+          {isAdmin && (
             <div className="bg-white border-t py-2 px-4 text-right">
               <button
                 type="button"

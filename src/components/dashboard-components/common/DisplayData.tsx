@@ -5,6 +5,7 @@ import * as AutogenEnums from "../../../types/autogen";
 interface DisplayDataProps {
   type:
     | "text"
+    | "number"
     | "array"
     | "custom"
     | "entityRelation"
@@ -42,7 +43,7 @@ const DisplayData = ({ type, onEdit, fieldName }: DisplayDataProps) => {
     isEmpty(value) ? "text-[#8896a1]" : ""
   } cursor-pointer`;
 
-  if (type === "text") {
+  if (type === "text" || fieldName == "yearsOfExperience") {
     const enumMap = getEnumFromFieldName(fieldName);
     let displayValue = "Click to add";
 
@@ -52,6 +53,8 @@ const DisplayData = ({ type, onEdit, fieldName }: DisplayDataProps) => {
       } else {
         displayValue = value;
       }
+    } else if (value) {
+      displayValue = value.toString();
     }
 
     return (

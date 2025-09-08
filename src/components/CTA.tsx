@@ -1,6 +1,4 @@
-import { Link, CTA, AnalyticsScopeProvider } from "@yext/pages-components";
-import { useEffect, useState } from "react";
-import { getTextColor } from "./util/useDashboardStore";
+import { Link, CTA } from "@yext/pages-components";
 
 interface CTAProps {
   color: string;
@@ -17,7 +15,7 @@ const buildCTAStyles = (ctaType: CTAProps["ctaType"]) => {
 const Cta = ({ cta, ctaType, otherStyles = "", color }: CTAProps) => {
   return (
     <Link
-      style={{ background: color, color: getTextColor(color) }}
+      style={{ background: color, color: "white" }}
       className={`${buildCTAStyles(ctaType)} ${otherStyles}`}
       cta={{
         link: cta?.link || "#",

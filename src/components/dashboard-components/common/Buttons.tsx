@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { CompProps } from "../../../types/Dashboard";
-import {
-  getTextColor,
-  useFieldGroupsStore,
-} from "../../util/useDashboardStore";
+import { useFieldGroupsStore } from "../../util/useDashboardStore";
 
 const Buttons = ({ fieldName }: CompProps) => {
   const {
@@ -35,10 +32,14 @@ const Buttons = ({ fieldName }: CompProps) => {
 
   const handleSave = async () => {
     setIsSaving(true);
+
     try {
-      const requestBody = encodeURIComponent(
-        JSON.stringify({ [fieldApi]: newValue })
-      );
+      const requestBody = JSON.stringify({
+        [fieldApi]:
+          fieldName === "c_linkedLocations"
+            ? newValue.map((item: any) => item.id)
+            : newValue,
+      });
 
       const response = await fetch(
         `/api/saveEntity/${entityId}?userType=${isAdmin}&body=${requestBody}`
@@ -70,10 +71,7 @@ const Buttons = ({ fieldName }: CompProps) => {
       <button
         style={{
           background: backgroundColor,
-          color:
-            typeof backgroundColor === "string"
-              ? getTextColor(backgroundColor)
-              : "#000",
+          color: "white",
         }}
         disabled={isUnchanged || isSaving}
         className="h-[30px] rounded-2xl border px-4 py-2 flex items-center justify-center cursor-pointer disabled:bg-[#dadce0] disabled:text-[#97999d] disabled:cursor-not-allowed"

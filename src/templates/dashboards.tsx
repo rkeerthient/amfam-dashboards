@@ -17,20 +17,17 @@ import {
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import FieldGroups from "../components/dashboard-components/common/FieldGroups";
 import { Dashboard, FieldCompletionProps } from "../types/Dashboard";
-import {
-  getTextColor,
-  useFieldGroupsStore,
-} from "../components/util/useDashboardStore";
+import { useFieldGroupsStore } from "../components/util/useDashboardStore";
 import { TABS } from "../components/constants";
-import SampleChart from "../components/dashboard-components/charts/SampleChart";
 import LearningCenter from "../components/dashboard-components/static-components/LnD";
 import AnalyticsOverview from "../components/dashboard-components/static-components/Analytics";
 import Approvals from "../components/dashboard-components/static-components/Approvals";
 import Banner from "../components/dashboard-components/Banner";
 import Team from "../components/dashboard-components/Team";
 import Suggestions from "../components/dashboard-components/Suggestions";
-import IncompleteFields from "../components/dashboard-components/IncompleteFields";
 import { Image } from "@yext/pages-components";
+import SampleChart from "../components/dashboard-components/charts/SampleChart";
+import IncompleteFields from "../components/dashboard-components/IncompleteFields";
 
 export const config: TemplateConfig = {
   stream: {
@@ -54,6 +51,19 @@ export const config: TemplateConfig = {
       "description",
       "frequentlyAskedQuestions.question",
       "frequentlyAskedQuestions.answer",
+      "products",
+      "awards",
+      "services",
+      "specialities",
+      "certifications",
+      "associations",
+      "brands",
+      "c_acceptingClients",
+      "nmlsNumber",
+      "disclosureLink",
+      "c_linkedLocations.meta",
+      "c_linkedLocations.name",
+      "c_linkedLocations.id",
     ],
     filter: {
       entityTypes: ["financialProfessional"],
@@ -185,7 +195,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
             className="flex"
             style={{
               background: backgroundColor,
-              color: getTextColor(backgroundColor),
+              color: "white",
             }}
           >
             <div className="p-4 flex items-center justify-center space-x-20 w-full">
@@ -221,7 +231,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
             </div>
             <div className="hidden sm:block">
               <nav
-                className="border-b border-gray-200 -mb-px flex space-x-8"
+                className="border-b border-gray-200 flex space-x-8"
                 aria-label="Tabs"
               >
                 {tabs.map((tab) => (
@@ -229,15 +239,15 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                     key={tab}
                     onClick={() => setCurrentTab(tab)}
                     className={classNames(
-                      "border-b-2 py-4 px-1 font-medium hover:cursor-pointer",
+                      "border-b-2 py-4 px-1 font-medium hover:cursor-pointer ",
                       currentTab === tab
                         ? "border-b-4 font-bold"
                         : "border-transparent hover:text-gray-700"
                     )}
                     style={{
                       borderColor:
-                        currentTab === tab ? backgroundColor : "transparent",
-                      color: currentTab === tab ? undefined : backgroundColor,
+                        currentTab === tab ? "#1f66e0" : "transparent",
+                      color: currentTab === tab ? "#003da5" : undefined,
                     }}
                   >
                     {tab}
@@ -249,6 +259,21 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
 
           {currentTab === "About Me" && (
             <div className="px-4 flex gap-4 mt-8">
+              {/* <div className="w-1/4 flex flex-col gap-4 border">
+                <div className="p-5 bg-white flex flex-col gap-4 text-center">
+                  <div className="rounded-full h-64 w-64 mx-auto">
+                    <Image
+                      image={document.headshot}
+                      className="!aspect-square rounded-full"
+                    />
+                  </div>
+                  <p className="text-gray-900">{document.name}</p>
+
+                  <p className="text-gray-900">
+                    {document.c_jobTitle || "Advisor"}
+                  </p>
+                </div>
+              </div> */}
               <div className="w-3/4">
                 <section className="flex flex-col gap-4 mt-8">
                   {c_taskGroups.map((group: Dashboard, idx: number) => (
@@ -258,7 +283,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                       className="w-full px-4"
                       style={{
                         background: backgroundColor,
-                        color: getTextColor(backgroundColor),
+                        color: "white",
                       }}
                     >
                       <DisclosureButton className="group w-full flex items-center py-2">
@@ -274,23 +299,6 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                   ))}
                 </section>
               </div>
-              {/* <div className="w-1/4 flex flex-col gap-4 border">
-                <div className="p-5 bg-white flex flex-col gap-4">
-                  <h3 className="font-bold text-gray-900">
-                    {c_dashboardCompletionLabel}
-                  </h3>
-                  <p className="text-gray-900">
-                    {c_dashboardCompletionDescription}
-                  </p>
-                  <SampleChart
-                    color={backgroundColor}
-                    completionPercentage={completionPercentage}
-                  />
-                </div>
-                {missingFields.length >= 1 && (
-                  <IncompleteFields missingFields={missingFields} />
-                )}
-              </div> */}
             </div>
           )}
           {currentTab === "Analytics" && <AnalyticsOverview />}

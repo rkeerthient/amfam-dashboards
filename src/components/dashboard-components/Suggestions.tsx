@@ -91,7 +91,8 @@ const Suggestions = () => {
             ? mainJson.response.nextPageToken
             : undefined
         );
-      setSuggestionsData((prev) => [...prev, ...suggestions]);
+
+      suggestions && setSuggestionsData((prev) => [...prev, ...suggestions]);
     } catch (error) {
       console.error(
         `Failed to fetch field configuration for ${entityId}:`,
@@ -133,130 +134,134 @@ const Suggestions = () => {
       ) : (
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="mt-8 flow-root">
-            <div
-              className={`-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 ${
-                suggestionsData && suggestionsData.length >= 1 && isLoading
-                  ? `opacity-60`
-                  : `opacity-100`
-              }`}
-            >
-              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <div className="min-w-full divide-y divide-gray-300">
-                  <div className="flex text-left text-sm font-semibold text-gray-900">
-                    <div className="w-2/12 flex justify-start py-3.5  px-4 sm:pl-0">
-                      Field
+            {suggestionsData && suggestionsData.length >= 1 ? (
+              <div
+                className={`-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 ${
+                  suggestionsData && suggestionsData.length >= 1 && isLoading
+                    ? `opacity-60`
+                    : `opacity-100`
+                }`}
+              >
+                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <div className="min-w-full divide-y divide-gray-300">
+                    <div className="flex text-left text-sm font-semibold text-gray-900">
+                      <div className="w-2/12 flex justify-start py-3.5  px-4 sm:pl-0">
+                        Field
+                      </div>
+                      <div className="w-3/12 flex justify-start px-3 py-3.5">
+                        Existing Content
+                      </div>
+                      <div className="w-3/12 flex justify-start px-3 py-3.5">
+                        Suggested Content
+                      </div>
+                      <div className="w-2/12 flex justify-start px-3 py-3.5">
+                        Created Date Time
+                      </div>
+                      <div className="w-2/12 flex justify-start px-3 py-3.5">
+                        Status
+                      </div>
                     </div>
-                    <div className="w-3/12 flex justify-start px-3 py-3.5">
-                      Existing Content
-                    </div>
-                    <div className="w-3/12 flex justify-start px-3 py-3.5">
-                      Suggested Content
-                    </div>
-                    <div className="w-2/12 flex justify-start px-3 py-3.5">
-                      Created Date Time
-                    </div>
-                    <div className="w-2/12 flex justify-start px-3 py-3.5">
-                      Status
-                    </div>
-                  </div>
-                  <div className="divide-y divide-gray-200 text-gray-500">
-                    {suggestionsData.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex gap-4 justify-between w-full"
-                      >
-                        <div className="px-4 py-3 text-sm flex justify-start w-2/12 font-medium text-gray-900 whitespace-normal">
-                          {Object.entries(
-                            JSON.stringify(
+                    <div className="divide-y divide-gray-200 text-gray-500">
+                      {suggestionsData.map((item, index) => (
+                        <div
+                          key={index}
+                          className="flex gap-4 justify-between w-full"
+                        >
+                          <div className="px-4 py-3 text-sm flex justify-start w-2/12 font-medium text-gray-900 whitespace-normal">
+                            {Object.entries(
+                              JSON.stringify(
+                                item.entityFieldSuggestion.existingContent
+                              ) !== "{}"
+                                ? item.entityFieldSuggestion.existingContent
+                                : item.entityFieldSuggestion.suggestedContent
+                            ).map(([key, value], index1) => (
+                              <div key={index1}>{key}</div>
+                            ))}
+                          </div>
+                          <div className="w-3/12 px-4 py-3 text-sm flex justify-start text-gray-500">
+                            {JSON.stringify(
                               item.entityFieldSuggestion.existingContent
-                            ) !== "{}"
-                              ? item.entityFieldSuggestion.existingContent
-                              : item.entityFieldSuggestion.suggestedContent
-                          ).map(([key, value], index1) => (
-                            <div key={index1}>{key}</div>
-                          ))}
-                        </div>
-                        <div className="w-3/12 px-4 py-3 text-sm flex justify-start text-gray-500">
-                          {JSON.stringify(
-                            item.entityFieldSuggestion.existingContent
-                          ) !== "{}" ? (
-                            Object.entries(
-                              item.entityFieldSuggestion.existingContent
+                            ) !== "{}" ? (
+                              Object.entries(
+                                item.entityFieldSuggestion.existingContent
+                              ).map(([key, value], index1) => (
+                                <div key={index1}>
+                                  <div className="flex flex-col gap-4">
+                                    {getFormattedSuggestionResponse(value)}
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <span className="italic">New Content</span>
+                            )}
+                          </div>
+                          <div className="w-3/12 px-4 py-3 text-sm flex justify-start text-gray-500">
+                            {Object.entries(
+                              item.entityFieldSuggestion.suggestedContent
                             ).map(([key, value], index1) => (
                               <div key={index1}>
                                 <div className="flex flex-col gap-4">
                                   {getFormattedSuggestionResponse(value)}
                                 </div>
                               </div>
-                            ))
-                          ) : (
-                            <span className="italic">New Content</span>
-                          )}
-                        </div>
-                        <div className="w-3/12 px-4 py-3 text-sm flex justify-start text-gray-500">
-                          {Object.entries(
-                            item.entityFieldSuggestion.suggestedContent
-                          ).map(([key, value], index1) => (
-                            <div key={index1}>
-                              <div className="flex flex-col gap-4">
-                                {getFormattedSuggestionResponse(value)}
+                            ))}
+                          </div>
+                          <div className="px-4  w-2/12 py-3 text-sm flex justify-start">
+                            {formattedDate(item.createdDate)}
+                          </div>
+                          <div className="px-4 py-3  w-2/12 text-sm flex items-baseline font-medium ">
+                            <div className="flex gap-2 items-center">
+                              {" "}
+                              <div>
+                                {item.status[0].toUpperCase() +
+                                  item.status.slice(1).toLocaleLowerCase()}
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="px-4  w-2/12 py-3 text-sm flex justify-start">
-                          {formattedDate(item.createdDate)}
-                        </div>
-                        <div className="px-4 py-3  w-2/12 text-sm flex items-baseline font-medium ">
-                          <div className="flex gap-2 items-center">
-                            {" "}
-                            <div>
-                              {item.status[0].toUpperCase() +
-                                item.status.slice(1).toLocaleLowerCase()}
-                            </div>
-                            <div>
-                              {(() => {
-                                switch (
-                                  item.status[0].toUpperCase() +
-                                  item.status.slice(1).toLowerCase()
-                                ) {
-                                  case "Pending":
-                                    return (
-                                      <FiRefreshCw className="h-3 w-3 text-orange-500" />
-                                    );
-                                  case "Approved":
-                                    return (
-                                      <FiCheck className="h-4 w-4 text-green-500" />
-                                    );
-                                  case "Rejected":
-                                    return (
-                                      <GrFormClose className="h-4 w-4 text-red-500" />
-                                    );
-                                  case "Cancelled":
-                                    return (
-                                      <FcCancel className="h-4 w-4 text-gray-800" />
-                                    );
-                                  default:
-                                    return null;
-                                }
-                              })()}
+                              <div>
+                                {(() => {
+                                  switch (
+                                    item.status[0].toUpperCase() +
+                                    item.status.slice(1).toLowerCase()
+                                  ) {
+                                    case "Pending":
+                                      return (
+                                        <FiRefreshCw className="h-3 w-3 text-orange-500" />
+                                      );
+                                    case "Approved":
+                                      return (
+                                        <FiCheck className="h-4 w-4 text-green-500" />
+                                      );
+                                    case "Rejected":
+                                      return (
+                                        <GrFormClose className="h-4 w-4 text-red-500" />
+                                      );
+                                    case "Cancelled":
+                                      return (
+                                        <FcCancel className="h-4 w-4 text-gray-800" />
+                                      );
+                                    default:
+                                      return null;
+                                  }
+                                })()}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
+                  {pageToken && (
+                    <div
+                      onClick={() => getFieldConfig(pageToken)}
+                      className="w-fit mx-auto text-sm hover:cursor-pointer text-center px-6 py-2 border-[#002750] border text-[#002750] bg-white mt-16"
+                    >
+                      Load more
+                    </div>
+                  )}
                 </div>
-                {pageToken && (
-                  <div
-                    onClick={() => getFieldConfig(pageToken)}
-                    className="w-fit mx-auto text-sm hover:cursor-pointer text-center px-6 py-2 border-[#002750] border text-[#002750] bg-white mt-16"
-                  >
-                    Load more
-                  </div>
-                )}
               </div>
-            </div>
+            ) : (
+              <div>No suggestions yet!!!</div>
+            )}
           </div>
         </div>
       )}

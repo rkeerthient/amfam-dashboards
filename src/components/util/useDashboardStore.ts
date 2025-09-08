@@ -42,7 +42,7 @@ interface FieldGroupsStore {
   setPortalPreviewValue: (field: string, value: any) => void;
 }
 
-const DEFAULT_BG = "lightgrey";
+const DEFAULT_BG = "radial-gradient(closest-side,#1f66e0,#003da5)";
 
 export const useFieldGroupsStore = create<FieldGroupsStore>((set) => ({
   editingField: null,

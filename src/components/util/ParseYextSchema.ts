@@ -9,6 +9,7 @@ export type FieldType =
   | "date"
   | "image"
   | "entityRelationship"
+  | "booleanType"
   | "custom";
 
 export interface FieldSchema {
@@ -74,6 +75,24 @@ export const ParseYextSchema = async (
           id: $id,
           displayName,
           type: "select" as FieldType,
+          options,
+        };
+      }
+      if (type?.booleanType) {
+        const options = [
+          {
+            label: "Yes",
+            value: true,
+          },
+          {
+            label: "No",
+            value: false,
+          },
+        ];
+        return {
+          id: $id,
+          displayName,
+          type: "booleanType" as FieldType,
           options,
         };
       }

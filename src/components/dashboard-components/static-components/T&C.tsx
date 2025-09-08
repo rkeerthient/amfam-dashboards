@@ -1,9 +1,6 @@
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useState } from "react";
-import {
-  getTextColor,
-  useFieldGroupsStore,
-} from "../../util/useDashboardStore";
+import { useFieldGroupsStore } from "../../util/useDashboardStore";
 
 const TandC = () => {
   const [open, setOpen] = useState(true);
@@ -91,10 +88,7 @@ const TandC = () => {
               <button
                 style={{
                   background: backgroundColor,
-                  color:
-                    typeof backgroundColor === "string"
-                      ? getTextColor(backgroundColor)
-                      : "#000",
+                  color: "white",
                 }}
                 type="button"
                 onClick={() => setOpen(false)}
