@@ -20,5 +20,5 @@ siteStream:
       - en
     primary: false
   entityId: dashboard
-# authentication:
-#   policyName: pages-new-auth
+authentication:
+  policyName: pages-new-auth
