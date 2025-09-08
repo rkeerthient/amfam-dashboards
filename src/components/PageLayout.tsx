@@ -109,6 +109,8 @@ const PageLayout = ({ children, _site, templateData }: PageLayoutProps) => {
       runtime.name === "browser" &&
       window?.YEXT_AUTH?.visitor?.externalId
     ) {
+      console.log(JSON.stringify(window?.YEXT_AUTH));
+
       const externalId = window.YEXT_AUTH.visitor.externalId;
       setUserId(externalId);
       if (externalId === "2676513") setIsAdmin(true);
@@ -116,6 +118,8 @@ const PageLayout = ({ children, _site, templateData }: PageLayoutProps) => {
   }, [runtime.name, setIsAdmin]);
 
   useEffect(() => {
+    console.log(`user Id` + userId);
+
     const checkUserType = async () => {
       const user = await fetchUserDetails(userId);
       if (user?.acl?.[0]?.roleName === "Content Requester") {
