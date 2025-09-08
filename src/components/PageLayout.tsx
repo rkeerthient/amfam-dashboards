@@ -54,7 +54,7 @@ const fetchUserDetails = async (
 };
 
 const PageLayout = ({ children, _site, templateData }: PageLayoutProps) => {
-  const { setIsAdmin, setFieldValue, setPortalPreviewValue } =
+  const { setIsAdmin, setFieldValue, setPortalPreviewValue, isAdmin } =
     useFieldGroupsStore();
   const runtime = getRuntime();
   const [userId, setUserId] = useState("");
@@ -122,6 +122,8 @@ const PageLayout = ({ children, _site, templateData }: PageLayoutProps) => {
 
     const checkUserType = async () => {
       const user = await fetchUserDetails(userId);
+      console.log(JSON.stringify(await user));
+
       if (user?.acl?.[0]?.roleName === "Content Requester") {
         setIsAdmin(false);
       } else {
