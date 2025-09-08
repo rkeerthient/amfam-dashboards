@@ -18,7 +18,7 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import FieldGroups from "../components/dashboard-components/common/FieldGroups";
 import { Dashboard, FieldCompletionProps } from "../types/Dashboard";
 import { useFieldGroupsStore } from "../components/util/useDashboardStore";
-import { TABS } from "../components/constants";
+import { PROFILE_COMPLETENESS_FIELDS, TABS } from "../components/constants";
 import LearningCenter from "../components/dashboard-components/static-components/LnD";
 import Approvals from "../components/dashboard-components/static-components/Approvals";
 import Banner from "../components/dashboard-components/Banner";
@@ -27,6 +27,8 @@ import Suggestions from "../components/dashboard-components/Suggestions";
 import { Image } from "@yext/pages-components";
 import { QueryClient, QueryClientProvider } from "react-query";
 import ReviewsComponent from "../components/dashboard-components/ReviewsComponent";
+import SampleChart from "../components/dashboard-components/charts/SampleChart";
+import IncompleteFields from "../components/dashboard-components/IncompleteFields";
 
 export const config: TemplateConfig = {
   stream: {
@@ -156,23 +158,23 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
   const tabs = TABS;
   const [currentTab, setCurrentTab] = useState<string>(tabs[0]);
 
-  const missingFields: FieldCompletionProps[] = useMemo(
+  const missingFields: any[] = useMemo(
     () =>
-      tasks.filter(({ field }) => {
-        const value = fieldValues[field];
+      PROFILE_COMPLETENESS_FIELDS.filter(({ key }) => {
+        const value = fieldValues[key];
         if (value == null) return true;
         if (typeof value === "string" && value.trim() === "") return true;
         if (Array.isArray(value) && value.length === 0) return true;
         return false;
       }),
-    [tasks, fieldValues]
+    [fieldValues]
   );
 
   const completionPercentage = useMemo(() => {
-    const total = tasks.length;
+    const total = PROFILE_COMPLETENESS_FIELDS.length;
     const filled = total - missingFields.length;
     return total > 0 ? Math.round((filled / total) * 100) : 0;
-  }, [tasks.length, missingFields.length]);
+  }, [missingFields.length]);
 
   if (!backgroundColor) {
     return (
@@ -204,6 +206,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                 <Image image={document.headshot} className="w-full h-full" />
               </div>
               <Banner
+                background={backgroundColor}
                 entityId={entityId}
                 name={document.name}
                 description={richTextDescriptionV2}
@@ -260,21 +263,6 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
 
           {currentTab === "About Me" && (
             <div className="px-4 flex gap-4 mt-8">
-              {/* <div className="w-1/4 flex flex-col gap-4 border">
-                <div className="p-5 bg-white flex flex-col gap-4 text-center">
-                  <div className="rounded-full h-64 w-64 mx-auto">
-                    <Image
-                      image={document.headshot}
-                      className="!aspect-square rounded-full"
-                    />
-                  </div>
-                  <p className="text-gray-900">{document.name}</p>
-
-                  <p className="text-gray-900">
-                    {document.c_jobTitle || "Advisor"}
-                  </p>
-                </div>
-              </div> */}
               <div className="w-3/4">
                 <section className="flex flex-col gap-4 mt-8">
                   {c_taskGroups.map((group: Dashboard, idx: number) => (
@@ -300,9 +288,33 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                   ))}
                 </section>
               </div>
+              <div className="w-1/4 flex flex-col gap-4 border">
+                <div className="p-5 bg-white flex flex-col gap-4">
+                  <div className="flex justify-between">
+                    <h3 className="font-bold text-gray-900">
+                      Your Profile Completeness
+                    </h3>
+                  </div>
+
+                  <p className="text-gray-900">
+                    Fill in <strong>Name</strong>, <strong>Address</strong>,{" "}
+                    <strong>Phone</strong>, <strong>Hours</strong>,{" "}
+                    <strong>Photo Gallery</strong> details to Complete your
+                    profile.
+                  </p>
+                  <SampleChart
+                    color={
+                      "radial-gradient(closest-side, rgb(31, 102, 224), rgb(0, 61, 165))"
+                    }
+                    completionPercentage={completionPercentage}
+                  />
+                </div>
+                {missingFields.length >= 1 && (
+                  <IncompleteFields missingFields={missingFields} />
+                )}
+              </div>
             </div>
           )}
-          {/* {currentTab === "Analytics" && <AnalyticsOverview />} */}
           {currentTab === "Reviews" && (
             <QueryClientProvider client={queryClient}>
               <ReviewsComponent />

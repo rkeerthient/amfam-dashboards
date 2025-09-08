@@ -85,3 +85,11 @@ export const defaultFieldsSchema = {
   languages: "TEXT_LIST",
   hobbies: "TEXT_LIST",
 };
+
+export const PROFILE_COMPLETENESS_FIELDS = [
+  { key: "name", label: "Name" },
+  { key: "address", label: "Address" },
+  { key: "mainPhone", label: "Phone" },
+  { key: "hours", label: "Hours" },
+  { key: "photoGallery", label: "Photo Gallery" },
+];

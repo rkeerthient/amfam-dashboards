@@ -49,7 +49,7 @@ const SampleChart = ({ completionPercentage, color }: SampleChartProps) => {
     datasets: [
       {
         data: [completionPercentage, 100 - completionPercentage],
-        backgroundColor: [color, "#e5e7eb"],
+        backgroundColor: ["rgb(31, 102, 224)", "#e5e7eb"],
         borderWidth: 0,
       },
     ],
