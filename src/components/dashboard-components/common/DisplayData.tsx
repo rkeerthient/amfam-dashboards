@@ -38,7 +38,6 @@ const isEmpty = (val: any): boolean => {
 const DisplayData = ({ type, onEdit, fieldName }: DisplayDataProps) => {
   const { fieldValues } = useFieldGroupsStore();
   const value = fieldValues[fieldName];
-  console.log(JSON.stringify(value));
 
   const baseClass = `text-xs break-all w-full ${
     isEmpty(value) ? "text-[#8896a1]" : ""

@@ -17,11 +17,11 @@ const Banner = ({
   return (
     <div className="w-3/5 flex flex-col gap-4">
       <div className="text-3xl font-bold">Welcome, {name} !</div>
-      {/* <div>
-        <div className="  text-brand-text-light">
+      <div>
+        <div className="text-brand-text-light">
           {<LexicalRichText serializedAST={JSON.stringify(description.json)} />}
         </div>
-      </div> */}
+      </div>
       <div className="flex gap-4">
         {/* <div className="bg-slate-200 px-4 py-2 rounded-md text-gray-800 font-semibold text-xs ">
           <a

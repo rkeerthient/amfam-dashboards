@@ -74,8 +74,9 @@ export const ANALYTICS_DATA = [
 export const TABS = [
   "About Me",
   "My Team",
-  "Analytics",
+  // "Analytics",
   "Suggestions",
+  "Reviews",
   "Learning & Support",
 ];
 

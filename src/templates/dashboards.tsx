@@ -20,14 +20,13 @@ import { Dashboard, FieldCompletionProps } from "../types/Dashboard";
 import { useFieldGroupsStore } from "../components/util/useDashboardStore";
 import { TABS } from "../components/constants";
 import LearningCenter from "../components/dashboard-components/static-components/LnD";
-import AnalyticsOverview from "../components/dashboard-components/static-components/Analytics";
 import Approvals from "../components/dashboard-components/static-components/Approvals";
 import Banner from "../components/dashboard-components/Banner";
 import Team from "../components/dashboard-components/Team";
 import Suggestions from "../components/dashboard-components/Suggestions";
 import { Image } from "@yext/pages-components";
-import SampleChart from "../components/dashboard-components/charts/SampleChart";
-import IncompleteFields from "../components/dashboard-components/IncompleteFields";
+import { QueryClient, QueryClientProvider } from "react-query";
+import ReviewsComponent from "../components/dashboard-components/ReviewsComponent";
 
 export const config: TemplateConfig = {
   stream: {
@@ -101,6 +100,8 @@ const isHexColor = (value: string) => /^#[0-9A-Fa-f]{6}$/.test(value);
 const classNames = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(" ");
 
+const queryClient = new QueryClient();
+
 const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
   const {
     c_taskGroups,
@@ -108,7 +109,6 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
     c_dashboardCompletionLabel,
     c_dashboardCompletionDescription,
   } = document._site;
-  console.log(JSON.stringify(document.frequentlyAskedQuestions));
 
   const {
     entityId,
@@ -302,7 +302,12 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
               </div>
             </div>
           )}
-          {currentTab === "Analytics" && <AnalyticsOverview />}
+          {/* {currentTab === "Analytics" && <AnalyticsOverview />} */}
+          {currentTab === "Reviews" && (
+            <QueryClientProvider client={queryClient}>
+              <ReviewsComponent />
+            </QueryClientProvider>
+          )}
           {currentTab === "Suggestions" && <Suggestions />}
           {currentTab === "Learning & Support" && <LearningCenter />}
           {currentTab === "My Team" && (
