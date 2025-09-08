@@ -118,7 +118,7 @@ const PageLayout = ({ children, _site, templateData }: PageLayoutProps) => {
   useEffect(() => {
     const checkUserType = async () => {
       const user = await fetchUserDetails(userId);
-      if (user?.acl?.[0]?.roleId === "20648") {
+      if (user?.acl?.[0]?.roleName === "Content Requester") {
         setIsAdmin(false);
       } else {
         setIsAdmin(true);
