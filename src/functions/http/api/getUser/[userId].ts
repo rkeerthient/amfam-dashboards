@@ -11,15 +11,11 @@ const getUser = async (
   if (!userId) {
     return { body: "Missing entityId", headers: {}, statusCode: 400 };
   }
-  console.log(
-    `https://sbx-api.yextapis.com/v2/accounts/me/users/${userId}?api_key=${api_key}&v=20250101`
-  );
 
   const getFieldsResponse = await fetch(
     `https://sbx-api.yextapis.com/v2/accounts/me/users/${userId}?api_key=${api_key}&v=20250101`
   );
   const resp = await getFieldsResponse.json();
-  console.log(JSON.stringify(resp));
 
   return {
     body: JSON.stringify(resp),

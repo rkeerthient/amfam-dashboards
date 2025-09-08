@@ -16,8 +16,6 @@ const Buttons = ({ fieldName }: CompProps) => {
     backgroundColor,
     setPortalPreviewValue,
   } = useFieldGroupsStore();
-  console.log(isAdmin, "-----");
-
   const [isSaving, setIsSaving] = useState(false);
 
   const newValue = newValues[fieldName];
