@@ -314,7 +314,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
           )}
           {currentTab === "Reviews" && (
             <QueryClientProvider client={queryClient}>
-              <ReviewsComponent entityId={document.id} />
+              <ReviewsComponent entityId={document.id} uid={document.uid} />
             </QueryClientProvider>
           )}
           {currentTab === "Suggestions" && <Suggestions />}
