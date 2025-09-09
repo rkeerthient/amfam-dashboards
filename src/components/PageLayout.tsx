@@ -7,6 +7,7 @@ import "../index.css";
 import TandC from "./dashboard-components/static-components/T&C";
 import { SiteEntity } from "../types/autogen";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Header from "./Header";
 
 export const FONT_MAP: Record<string, string> = {
   WORK_SANS: "Work Sans",
@@ -134,7 +135,7 @@ const PageLayout = ({ children, _site, templateData }: PageLayoutProps) => {
   return (
     <div className="min-h-screen">
       <TandC />
-      {/* <Header _site={_site} /> */}
+      <Header _site={_site} />
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       {/* <Footer _site={_site} /> */}
     </div>

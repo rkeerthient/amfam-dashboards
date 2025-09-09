@@ -26,7 +26,7 @@ const Approvals = ({ entityId, uid }: ApprovalProps) => {
         <div className="w-full grid grid-cols-2 gap-4 justify-between">
           <a
             href={`https://sandbox.yext.com/s/3356618/listings/all-listings#p0=specific&p1=contains&p2=${uid}&p3=-1&s0=0&l0=25&sortCol=default&sortDir=asc`}
-            className="flex flex-col gap-2 items-center justify-center"
+            className="flex flex-col gap-2 items-center justify-center hover:bg-gray-200 h-20"
           >
             {isFetching1 ? (
               <div className=" flex justify-center items-center h-full">
@@ -49,7 +49,7 @@ const Approvals = ({ entityId, uid }: ApprovalProps) => {
           </a>
           <a
             href={`https://sandbox.yext.com/s/3356618/reviews#p0=uep&p0=status&p0=response-status&p1=includes&p1=1%7C3&p1=1%7C3%7C2%7C4&p2=${uid}&p2=includes&p2=includes&p3=entities&p3=&p3=`}
-            className="flex flex-col gap-2 items-center justify-center"
+            className="flex flex-col gap-2 items-center justify-center hover:bg-gray-200 h-20"
           >
             {isFetching ? (
               <div className=" flex justify-center items-center h-full">
@@ -80,7 +80,7 @@ const Approvals = ({ entityId, uid }: ApprovalProps) => {
           </div>
           <a
             href={`https://sandbox.yext.com/s/3356618/user/userManagement#p0=scope&p1=contains&p2=entityId${uid}&p3=`}
-            className="flex flex-col gap-2 items-center justify-center"
+            className="flex flex-col gap-2 items-center justify-center hover:bg-gray-200 h-20"
           >
             {isFetching2 ? (
               <div className=" flex justify-center items-center h-full">
