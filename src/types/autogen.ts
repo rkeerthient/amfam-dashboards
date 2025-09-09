@@ -57,6 +57,7 @@ export interface RichTextV2 {
 	json: Record<string, any>,
 }
 
+
 export enum C_clientFocuses {
 	COLLEGE_EDUCATION_PLANNING = "College Education Planning",
 	CORPORATE_BENEFITS = "Corporate Benefits",

@@ -13,7 +13,8 @@ interface DisplayDataProps {
     | "multiselect"
     | "richTextV2"
     | "image"
-    | "unknown";
+    | "unknown"
+    | "booleanType";
   onEdit: () => void;
   fieldName: string;
 }
@@ -57,6 +58,22 @@ const DisplayData = ({ type, onEdit, fieldName }: DisplayDataProps) => {
       displayValue = value.toString();
     }
 
+    return (
+      <div className={baseClass} onClick={onEdit}>
+        {displayValue}
+      </div>
+    );
+  }
+
+  if (type === "booleanType") {
+    const enumMap = getEnumFromFieldName(fieldName);
+
+    let displayValue = "Click to add";
+    if (value === true) {
+      displayValue = "Yes";
+    } else if (value === false) {
+      displayValue = "No";
+    }
     return (
       <div className={baseClass} onClick={onEdit}>
         {displayValue}

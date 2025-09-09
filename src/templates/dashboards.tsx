@@ -26,9 +26,9 @@ import Team from "../components/dashboard-components/Team";
 import Suggestions from "../components/dashboard-components/Suggestions";
 import { Image } from "@yext/pages-components";
 import { QueryClient, QueryClientProvider } from "react-query";
-import ReviewsComponent from "../components/dashboard-components/ReviewsComponent";
 import SampleChart from "../components/dashboard-components/charts/SampleChart";
 import IncompleteFields from "../components/dashboard-components/IncompleteFields";
+import ReviewsComponent from "../components/reviewsComponent/ReviewsComponent";
 
 export const config: TemplateConfig = {
   stream: {

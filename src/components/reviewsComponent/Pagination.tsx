@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 
 interface PaginationProps {
   page: number;

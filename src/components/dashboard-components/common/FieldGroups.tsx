@@ -15,6 +15,7 @@ import StructuredListField from "../fields/StructuredListField";
 import PhotoField from "../fields/PhotoField";
 import EntityField from "../fields/entityField/EntityField";
 import FAQsField from "../fields/FAQsField";
+import BooleanField from "../fields/BooleanField";
 
 interface TasksProp {
   tasks: Task[];
@@ -62,6 +63,7 @@ const FieldGroups = ({ tasks, document }: TasksProp) => {
         const isEditing = editingField === item.field;
         const initialValue = document[item.field];
         const fieldType = getFieldType(initialValue);
+ 
         const fieldApiType = fieldApiTypes[item.field];
 
         return (
@@ -98,9 +100,7 @@ const FieldGroups = ({ tasks, document }: TasksProp) => {
                         options={fieldApiType.options || []}
                       />
                     ) : item.field === "frequentlyAskedQuestions" ? (
-                      <FAQsField
-                        fieldName={item.field}
-                       />
+                      <FAQsField fieldName={item.field} />
                     ) : item.field === "headshot" ||
                       fieldApiType?.type === "image" ? (
                       <PhotoField fieldName={item.field} />
@@ -115,12 +115,13 @@ const FieldGroups = ({ tasks, document }: TasksProp) => {
                       <TextAreaField fieldName={item.field} />
                     ) : fieldApiType?.type === "entityRelationship" ? (
                       <EntityField type={item.field} fieldName={item.field} />
-                    ) : fieldApiType?.type === "select" ||
-                      fieldApiType?.type === "booleanType" ? (
+                    ) : fieldApiType?.type === "select" ? (
                       <PicklistField
                         fieldName={item.field}
                         options={fieldApiType.options || []}
                       />
+                    ) : fieldApiType?.type === "booleanType" ? (
+                      <BooleanField fieldName={item.field} />
                     ) : item.field === "yearsOfExperience" ||
                       item.field === "nmlsNumber" ||
                       fieldType === "text" ||
@@ -157,9 +158,15 @@ const getFieldType = (
   | "multiselect"
   | "richTextV2"
   | "image"
-  | "unknown" => {
+  | "unknown"
+  | "booleanType" => {
+ 
   if (typeof fieldValue === "string") {
     return "text";
+  }
+
+  if (typeof fieldValue === "boolean") {
+    return "booleanType";
   }
 
   if (Array.isArray(fieldValue)) {
@@ -209,6 +216,7 @@ const getFieldTypeFromAPI = async (
 
     const data = await response.json();
     const parsedFields = await ParseYextSchema([data]);
+
     return parsedFields[0];
   } catch (error) {
     console.error("Error in getFieldTypeFromAPI:", error);

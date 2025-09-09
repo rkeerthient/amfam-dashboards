@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
-import Pagination from "../Pagination";
 import StarRating from "./StarRating";
+import Pagination from "./Pagination";
 
 export interface ReviewResponse {
   meta: Meta;
