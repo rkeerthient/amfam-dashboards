@@ -26,9 +26,11 @@ import Team from "../components/dashboard-components/Team";
 import Suggestions from "../components/dashboard-components/Suggestions";
 import { Image } from "@yext/pages-components";
 import { QueryClient, QueryClientProvider } from "react-query";
- import SampleChart from "../components/dashboard-components/charts/SampleChart";
+import SampleChart from "../components/dashboard-components/charts/SampleChart";
 import IncompleteFields from "../components/dashboard-components/IncompleteFields";
-import ReviewsComponent from "../components/reviewsComponent/ReviewsComponent";
+import ReviewsComponent, {
+  ReviewResponse,
+} from "../components/reviewsComponent/ReviewsComponent";
 
 export const config: TemplateConfig = {
   stream: {
@@ -105,12 +107,7 @@ const classNames = (...classes: (string | false | null | undefined)[]) =>
 const queryClient = new QueryClient();
 
 const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
-  const {
-    c_taskGroups,
-    richTextDescriptionV2,
-    c_dashboardCompletionLabel,
-    c_dashboardCompletionDescription,
-  } = document._site;
+  const { c_taskGroups, richTextDescriptionV2 } = document._site;
 
   const {
     entityId,
@@ -211,7 +208,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                 name={document.name}
                 description={richTextDescriptionV2}
               />
-              {/* <Approvals /> */}
+              <Approvals entityId={document.id} uid={document.uid} />
             </div>
           </section>
 
@@ -317,7 +314,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
           )}
           {currentTab === "Reviews" && (
             <QueryClientProvider client={queryClient}>
-              <ReviewsComponent />
+              <ReviewsComponent entityId={document.id} />
             </QueryClientProvider>
           )}
           {currentTab === "Suggestions" && <Suggestions />}

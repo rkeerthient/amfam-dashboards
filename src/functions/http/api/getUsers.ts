@@ -1,19 +1,14 @@
 import { PagesHttpRequest, PagesHttpResponse } from "@yext/pages/*";
 
-const getLiveListingsCount = async (
+const getUsers = async (
   request: PagesHttpRequest
 ): Promise<PagesHttpResponse> => {
-  const { method, pathParams } = request;
+  const { method } = request;
 
-  const { id } = pathParams;
   const api_key = YEXT_PUBLIC_DEV_API_KEY as string;
 
-  if (!id) {
-    return { body: "Missing entityId", headers: {}, statusCode: 400 };
-  }
-
   const getFieldsResponse = await fetch(
-    `https://sbx-api.yextapis.com/v2/accounts/me/listings/listings?api_key=${api_key}&v=20250101&status=LIVE&locationIds=${id}`
+    `https://sbx-api.yextapis.com/v2/accounts/me/users?api_key=${api_key}&v=20250101`
   );
   const resp = await getFieldsResponse.json();
 
@@ -24,4 +19,4 @@ const getLiveListingsCount = async (
   };
 };
 
-export default getLiveListingsCount;
+export default getUsers;

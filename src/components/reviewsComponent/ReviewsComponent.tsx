@@ -40,7 +40,7 @@ export interface Review {
 
 const PAGE_SIZE = 10;
 
-function useReviews(page: number) {
+function useReviews(page: number, entityId: string) {
   const params = new URLSearchParams({
     page: String(page),
     pageSize: String(PAGE_SIZE),
@@ -49,7 +49,9 @@ function useReviews(page: number) {
   return useQuery<ReviewResponse, Error>({
     queryKey: ["reviews", page, PAGE_SIZE],
     queryFn: async () => {
-      const res = await fetch(`/api/getReviews/123?${params.toString()}`);
+      const res = await fetch(
+        `/api/getReviews/${entityId}?${params.toString()}`
+      );
       if (!res.ok) throw new Error(`Failed to fetch reviews (${res.status})`);
       return res.json();
     },
@@ -57,9 +59,9 @@ function useReviews(page: number) {
   });
 }
 
-const ReviewsComponent = () => {
+const ReviewsComponent = ({ entityId }: { entityId: string }) => {
   const [page, setPage] = useState<number>(1);
-  const { data, error, isFetching } = useReviews(page);
+  const { data, error, isFetching } = useReviews(page, entityId);
 
   const totalCount = data?.response.count ?? 0;
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
