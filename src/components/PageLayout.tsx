@@ -6,6 +6,7 @@ import { isLocal } from "./util/isLocal";
 import "../index.css";
 import TandC from "./dashboard-components/static-components/T&C";
 import { SiteEntity } from "../types/autogen";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 export const FONT_MAP: Record<string, string> = {
   WORK_SANS: "Work Sans",
@@ -34,11 +35,13 @@ declare global {
 
 interface ACL {
   roleId: string;
+  roleName: string;
 }
 
 interface ResponseData {
   acl: ACL[];
 }
+const queryClient = new QueryClient();
 
 const fetchUserDetails = async (
   userId: string
@@ -132,7 +135,7 @@ const PageLayout = ({ children, _site, templateData }: PageLayoutProps) => {
     <div className="min-h-screen">
       <TandC />
       {/* <Header _site={_site} /> */}
-      {children}
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       {/* <Footer _site={_site} /> */}
     </div>
   );

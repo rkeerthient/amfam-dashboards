@@ -66,8 +66,6 @@ const DisplayData = ({ type, onEdit, fieldName }: DisplayDataProps) => {
   }
 
   if (type === "booleanType") {
-    const enumMap = getEnumFromFieldName(fieldName);
-
     let displayValue = "Click to add";
     if (value === true) {
       displayValue = "Yes";
@@ -180,18 +178,6 @@ const DisplayData = ({ type, onEdit, fieldName }: DisplayDataProps) => {
       </div>
     );
   }
-
-  // if (type === "richTextV2") {
-  //   return (
-  //     <div className={baseClass} onClick={onEdit}>
-  //       {value && !isEmpty(value) ? (
-  //         <LexicalRichText serializedAST={JSON.stringify(value.json)} />
-  //       ) : (
-  //         "Click to add"
-  //       )}
-  //     </div>
-  //   );
-  // }
 
   if (type === "image") {
     return (
